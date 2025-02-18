@@ -1,0 +1,25 @@
+html, body {
+    overflow-x: hidden;
+}
+
+:root {
+    --background-color: #2C1E1A;
+    --primary-bg: #334e41;
+    --accent-color: #FFB74D;
+    --secondary-bg: #5b8a73;
+    --light-bg: #e4cec0;
+    --hover-accent: #ffc163;
+    --primary-font: 'Playfair Display', serif;
+    --secondary-font: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.container-custom {
+    padding: 3%;
+    background-color: var(--primary-bg);
+    margin-top: 4%;
+    border-radius: 5px;
+}
