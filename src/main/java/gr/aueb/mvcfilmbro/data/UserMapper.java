@@ -14,13 +14,13 @@ public class UserMapper implements RowMapper<User> {
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         return new User(
-                rs.getInt("id"),
-                rs.getString("username"),
+                rs.getInt("userId"),
+                rs.getString("user_name"),
+                rs.getString("pass_word"),
                 rs.getString("email"),
-                rs.getString("password"),
                 rs.getString("country"),
-                rs.getString("profilePic"),
-                rs.getInt("profileVisibility"),
+                rs.getString("profile_pic"),
+                rs.getInt("account_status"),
                 rs.getString("bio")
         );
     }
