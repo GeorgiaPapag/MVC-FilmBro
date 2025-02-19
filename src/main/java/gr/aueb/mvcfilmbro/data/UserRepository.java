@@ -23,8 +23,7 @@ public class UserRepository {
 
     public User authentication(String username, String password) {
 
-        String query = "SELECT * FROM appuser WHERE " +
-                        "user_name=? and pass_word = ?;";
+        String query = "SELECT * FROM appuser WHERE user_name=? and pass_word = ?;";
 
         try {
             User user = jdbcTemplate.queryForObject(
@@ -76,9 +75,7 @@ public class UserRepository {
     public void updateUser(User user) throws Exception {
 
         // update the user details
-        String sql = "UPDATE appuser SET user_name = ?, " +
-                     "email = ?, country = ?, profile_pic = ?, " +
-                     "account_status = ?, bio = ? WHERE userId = ?";
+        String sql = "UPDATE appuser SET user_name = ?, email = ?, country = ?, profile_pic = ?, account_status = ?, bio = ? WHERE userId = ?";
 
         try {
             jdbcTemplate.update(sql,
