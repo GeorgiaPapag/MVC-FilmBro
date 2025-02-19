@@ -66,4 +66,33 @@ public class UserRepository {
             throw new Exception("Something went wrong while inserting the user: " + e.getMessage());
         }
     }
+
+
+    /** update the fields of the user
+     *
+     */
+
+    public void updateUser(User user) throws Exception {
+
+        // update the user details
+        String sql = "UPDATE appuser SET user_name = ?, " +
+                     "email = ?, country = ?, profile_pic = ?, " +
+                     "account_status = ?, bio = ? WHERE userId = ?";
+
+        try {
+            jdbcTemplate.update(sql,
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getCountry(),
+                    user.getProfilePic(),
+                    user.getProfileVisibility(),
+                    user.getBio(),
+                    user.getId()
+            );
+        } catch (DataAccessException e) {
+
+            // exception that may occur form the database
+            throw new Exception("Error while updating:" + e.getMessage());
+        }
+    }
 }
