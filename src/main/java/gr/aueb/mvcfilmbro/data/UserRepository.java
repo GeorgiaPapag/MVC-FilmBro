@@ -116,4 +116,22 @@ public class UserRepository {
         return followers;
     }
 
+    /**  list of users that the specified user is following
+     * @param id the id of the user whose following list is to be retrieved
+     */
+
+    public ArrayList<User> getFollowing(int id) throws Exception {
+        ArrayList<User> following = new ArrayList<>();
+
+        String sql = "SELECT * FROM AppUser JOIN Follow ON Follow.followingId = AppUser.userId WHERE followerId=?";
+
+        try {
+            List<User> result = jdbcTemplate.query(sql, new Object[]{id}, new UserMapper());
+            following.addAll(result);
+        } catch (DataAccessException e) {
+            throw new Exception("Error fetching followers: " + e.getMessage());
+        }
+
+        return following;
+    }
 }
