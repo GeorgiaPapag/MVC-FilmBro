@@ -7,6 +7,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class UserRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -83,7 +87,7 @@ public class UserRepository {
                     user.getEmail(),
                     user.getCountry(),
                     user.getProfilePic(),
-                    user.getProfileVisibility(),
+                    user.getAccount_status(),
                     user.getBio(),
                     user.getId()
             );
@@ -93,4 +97,23 @@ public class UserRepository {
             throw new Exception("Error while updating:" + e.getMessage());
         }
     }
+
+    /** get the followers of the user
+    * @param id is the user id
+    */
+    public ArrayList<User> getFollowers(int id) throws Exception {
+        ArrayList<User> followers = new ArrayList<>();
+
+        String sql = "SELECT * FROM appuser JOIN follow ON follow.followerId = appuser.userId WHERE follow.followingId = ?";
+
+        try {
+            List<User> result = jdbcTemplate.query(sql, new Object[]{id}, new UserMapper());
+            followers.addAll(result);
+        } catch (DataAccessException e) {
+            throw new Exception("Error fetching followers: " + e.getMessage());
+        }
+
+        return followers;
+    }
+
 }

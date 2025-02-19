@@ -16,6 +16,6 @@ public class User {
     private String email;
     private String country;
     private String profilePic;
-    private int profileVisibility;
+    private int account_status;
     private String bio;
 }
