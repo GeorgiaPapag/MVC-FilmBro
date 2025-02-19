@@ -1,16 +1,18 @@
 package gr.aueb.mvcfilmbro.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+
+@Getter
 @AllArgsConstructor
 public class User {
 
     /** params **/
-    private int id;
-    private String username;
-    private String password;
+    private final int id;
+    @Setter private String username;
+    @Setter private String password;
     private String email;
     private String country;
     private String profilePic;
