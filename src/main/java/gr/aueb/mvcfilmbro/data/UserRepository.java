@@ -153,4 +153,22 @@ public class UserRepository {
             throw new Exception("No user found");
         }
     }
+
+    /** is following checking if a user is following another user
+     * @param user the user who might be following
+     * @param otherUser the user who might be followed
+     */
+
+    public boolean isFollowing(User user, User otherUser) {
+
+        String query = "SELECT 1 FROM Follow WHERE followerId = ? AND followingId = ?";
+
+        try {
+            Integer result = jdbcTemplate.queryForObject(query, Integer.class, user.getId(), otherUser.getId());
+           // return result != null;
+            return true; // If query succeeds, user is following
+        } catch (EmptyResultDataAccessException e) {
+            return false; // // If no match, user is not following
+        }
+    }
 }
