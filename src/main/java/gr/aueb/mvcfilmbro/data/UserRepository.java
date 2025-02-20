@@ -134,4 +134,23 @@ public class UserRepository {
 
         return following;
     }
+
+    /** find user by id
+     * @param userId the id of the user
+     */
+
+    public User findUserById(int userId) throws Exception {
+
+        String query = "SELECT * FROM appuser WHERE userId=?";
+
+        try {
+            return jdbcTemplate.queryForObject(
+                    query,
+                    new UserMapper(),
+                    userId
+            );
+        } catch (EmptyResultDataAccessException e) {
+            throw new Exception("No user found");
+        }
+    }
 }
