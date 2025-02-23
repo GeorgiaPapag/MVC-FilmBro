@@ -381,7 +381,7 @@ input[type="checkbox"]:focus {
     float: right;
     font-size: 1.2em;
     cursor: pointer;
-    color: var (--accent-color);
+    color: var(--accent-color);
 }
 
 .close:focus {
