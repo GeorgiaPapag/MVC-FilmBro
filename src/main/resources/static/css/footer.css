@@ -1,0 +1,23 @@
+.custom-footer {
+  color: var(--light-bg) !important;
+  font-family: var(--secondary-font) !important;
+  background-color: var(--primary-bg) !important;
+}
+
+.custom-link {
+  color: var(--accent-color) !important;
+  font-family: var(--primary-font) !important;
+  text-decoration: none;
+}
+
+.custom-link:hover {
+  text-decoration: underline;
+}
+
+.footer-line {
+  border-top: 3px solid var(--accent-color) !important;
+}
+
+.letters-color {
+  color: var(--light-bg) !important;
+}
