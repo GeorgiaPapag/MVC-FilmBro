@@ -3,10 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | FilmBro</title>
+    <title>Profile | FilmBro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
-    <h1>Welcome!</h1>
+    <div class="container-fluid container-custom">
+        <div class="row space1">
+            <!-- Left Section -->
+            <div class="col-6 col-md-5 col-lg-6 space custom-col-6">
+                <div class="justify-content-center align-items-start gap-4 vh-50 space-form-text costume-width photo-position">
+                    <!-- Profile Photo -->
+                    <img th:src="${user.profile_pic}"
+                         alt="Profile Picture"
+                         class="text-center text-white bg-secondary d-flex justify-content-center align-items-center rounded-circle mb-3 photo-width">
+                    <div class="d-flex flex-column align-items-centergap-1 custom-position">
+                        <!-- Profile Name and Buttons -->
+                        <h1 class="text-warning mb-3 username-style" th:text="${user.user_name}"></h1>
+
+                        <!-- Bio -->
+                        <p class="bio" th:text="${user.bio}"></p>
+
+                        <!-- Country -->
+                        <p class="country"><b>Country:</b> <span th:text="${user.country}"></span></p>
+
+<!--                        &lt;!&ndash; Followers and Following Buttons &ndash;&gt;-->
+<!--                        <div class="d-flex div-follow-style">-->
+<!--                            <button class="btn btn-sm custom-btn follow-style" onclick="showFollowersPopup()">-->
+<!--                                Followers <span><%=userDAO.getFollowers(id).size()%></span>-->
+<!--                            </button>-->
+<!--                            <button class="btn btn-sm custom-btn follow-style" onclick="showFollowingPopup()">-->
+<!--                                Following <span><%=userDAO.getFollowing(id).size()%></span>-->
+<!--                            </button>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

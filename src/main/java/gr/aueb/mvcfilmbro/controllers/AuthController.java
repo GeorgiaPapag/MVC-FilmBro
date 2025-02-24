@@ -41,7 +41,7 @@ public class AuthController {
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
-            return "redirect:/index"; // Redirect to login if not authenticated
+            return "redirect:/index"; // Redirect to index if not authenticated/logged in
         }
 
         model.addAttribute("user", user);
