@@ -89,8 +89,9 @@
                         <div class="d-flex gap-2 mt-2 custom-width">
     <!--                        <th:block th:if="${currentUser != null}">-->
     <!--                            <th:block th:if="${currentUser.id == user.id}">-->
-                                    <a href="/editmyprofile" class="btn btn-sm edit-button-style">Edit Profile</a>
-    <!--                            </th:block>-->
+                            <a th:href="@{/editmyprofile}" class="btn btn-sm edit-button-style">Edit Profile</a>
+
+                            <!--                            </th:block>-->
     <!--                            <th:block th:if="${currentUser.id != user.id}">-->
     <!--                                <button id="followButton"-->
     <!--                                        class="btn btn-sm custom-btn-2 custom-follow-button"-->

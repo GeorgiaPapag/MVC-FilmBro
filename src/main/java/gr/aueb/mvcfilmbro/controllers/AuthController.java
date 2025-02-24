@@ -66,6 +66,17 @@ public class AuthController {
 //}
 //
 //
+    @GetMapping("/editmyprofile")
+    public String editProfile(HttpSession session, Model model) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null) {
+            return "redirect:/index"; // Redirect to index if not authenticated
+        }
+
+        model.addAttribute("user", loggedInUser);
+        return "editmyprofile"; // This should match your Thymeleaf template name
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
