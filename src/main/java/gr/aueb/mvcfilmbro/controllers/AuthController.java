@@ -32,7 +32,7 @@ public class AuthController {
             return "redirect:/profile"; // Redirect to profile page
         } catch (Exception e) {
             model.addAttribute("error", "Invalid username or password");
-            return "login"; // Return back to login page with an error message
+            return "/index"; // Return back to login page with an error message
         }
     }
 
@@ -41,7 +41,7 @@ public class AuthController {
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
-            return "redirect:/login"; // Redirect to login if not authenticated
+            return "redirect:/index"; // Redirect to login if not authenticated
         }
 
         model.addAttribute("user", user);
@@ -51,6 +51,6 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Destroy session
-        return "redirect:/login"; // Redirect to login page
+        return "redirect:/index"; // Redirect to login page
     }
 }
