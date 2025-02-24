@@ -10,38 +10,38 @@
     <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
-    <div class="container-fluid container-custom">
-        <div class="row space1">
-            <!-- Left Section -->
-            <div class="col-6 col-md-5 col-lg-6 space custom-col-6">
-                <div class="justify-content-center align-items-start gap-4 vh-50 space-form-text costume-width photo-position">
-                    <!-- Profile Photo -->
-                    <img th:src="${user.profile_pic}"
-                         alt="Profile Picture"
-                         class="text-center text-white bg-secondary d-flex justify-content-center align-items-center rounded-circle mb-3 photo-width">
-                    <div class="d-flex flex-column align-items-centergap-1 custom-position">
-                        <!-- Profile Name and Buttons -->
-                        <h1 class="text-warning mb-3 username-style" th:text="${user.user_name}"></h1>
+<!--<div class="container-fluid container-custom">-->
+<!--    <div class="row space1">-->
+<!--        &lt;!&ndash; Left Section &ndash;&gt;-->
+<!--        <div class="col-6 col-md-5 col-lg-6 space custom-col-6">-->
+<!--            <div class="justify-content-center align-items-start gap-4 vh-50 space-form-text costume-width photo-position">-->
+<!--                &lt;!&ndash; Profile Photo &ndash;&gt;-->
+<!--                <img th:src="${user.profilePic}"-->
+<!--                     alt="Profile Picture"-->
+<!--                     class="text-center text-white bg-secondary d-flex justify-content-center align-items-center rounded-circle mb-3 photo-width">-->
+<!--                <div class="d-flex flex-column align-items-centergap-1 custom-position">-->
+<!--                    &lt;!&ndash; Profile Name and Buttons &ndash;&gt;-->
+<!--                    <h1 class="text-warning mb-3 username-style" th:text="${user.userName}"></h1>-->
 
-                        <!-- Bio -->
-                        <p class="bio" th:text="${user.bio}"></p>
+<!--                    &lt;!&ndash; Bio &ndash;&gt;-->
+<!--                    <p class="bio" th:text="${user.bio}"></p>-->
 
-                        <!-- Country -->
-                        <p class="country"><b>Country:</b> <span th:text="${user.country}"></span></p>
+<!--                    &lt;!&ndash; Country &ndash;&gt;-->
+<!--                    <p class="country"><b>Country:</b> <span th:text="${user.country}"></span></p>-->
 
-                        <!-- Followers and Following Buttons -->
-<!--                        <div class="follow-buttons">-->
-<!--                            <button class="btn" onclick="showFollowersPopup()">-->
-<!--                                Followers <span th:text="${user.followersCount}"></span>-->
-<!--                            </button>-->
-<!--                            <button class="btn" onclick="showFollowingPopup()">-->
-<!--                                Following <span th:text="${user.followingCount}"></span>-->
-<!--                            </button>-->
-<!--                        </div>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                    &lt;!&ndash;                        &lt;!&ndash; Followers and Following Buttons &ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        <div class="d-flex div-follow-style">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <button class="btn btn-sm custom-btn follow-style" onclick="showFollowersPopup()">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                Followers <span><%=userDAO.getFollowers(id).size()%></span>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            </button>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <button class="btn btn-sm custom-btn follow-style" onclick="showFollowingPopup()">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                Following <span><%=userDAO.getFollowing(id).size()%></span>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            </button>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>

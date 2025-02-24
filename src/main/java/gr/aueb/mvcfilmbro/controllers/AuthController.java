@@ -32,7 +32,7 @@ public class AuthController {
             return "redirect:/profile"; // Redirect to profile page
         } catch (Exception e) {
             model.addAttribute("error", "Invalid username or password");
-            return "index"; // Return back to index page with an error message
+            return "/index"; // Return back to login page with an error message
         }
     }
 
@@ -41,7 +41,7 @@ public class AuthController {
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
-            return "redirect:/index"; // Redirect to index if not authenticated/logged in
+            return "redirect:/index"; // Redirect to login if not authenticated
         }
 
         model.addAttribute("user", user);
