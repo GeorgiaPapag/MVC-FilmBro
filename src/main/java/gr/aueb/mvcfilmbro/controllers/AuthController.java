@@ -48,6 +48,25 @@ public class AuthController {
         return "profile"; // This should be your profile page
     }
 
+//@GetMapping("/profile")
+//public String profile(HttpSession session, Model model) {
+//    User user = (User) session.getAttribute("loggedInUser");
+//
+//    if (user == null) {
+//        return "redirect:/index"; // Redirect to login if not authenticated
+//    }
+//
+//    // Debugging: Log the user properties to check if they are populated
+//    System.out.println("User Name: " + user.getUserName());  // Correct method name
+//    System.out.println("User Bio: " + user.getBio());
+//    System.out.println("User Country: " + user.getCountry());
+//
+//    model.addAttribute("user", user);
+//    return "profile"; // This should be your profile page
+//}
+//
+//
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Destroy session
