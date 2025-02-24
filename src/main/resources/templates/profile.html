@@ -161,18 +161,18 @@
     <!-- Options Section -->
     <div class="container-fluid custom-border m-0 p-0">
         <div class="d-flex justify-content-center gap-2 py-3 space2">
-            <th:block th:if="${currentUser != null}">
+<!--            <th:block th:if="${currentUser != null}">-->
                 <button class="btn custom-btn-3 list-buttons" onclick="redirectToDefaultList('Seen')">Seen</button>
                 <button class="btn custom-btn-3 list-buttons" onclick="redirectToDefaultList('Favorites')">Favorites</button>
                 <button class="btn custom-btn-3 list-buttons" onclick="redirectToDefaultList('Watchlist')">Watchlist</button>
-                <th:block th:if="${user.id == currentUser.id}">
+<!--                <th:block th:if="${user.id == currentUser.id}">-->
                     <button id="reviewsButton" class="btn custom-btn-3 list-buttons">My Reviews</button>
                     <button id="movieListsButton" class="btn custom-btn-3 list-buttons">My Movie Lists</button>
-                </th:block>
-            </th:block>
-            <th:block th:if="${currentUser == null}">
-                <button class="btn custom-btn-3 list-buttons" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-            </th:block>
+<!--                </th:block>-->
+<!--            </th:block>-->
+<!--            <th:block th:if="${currentUser == null}">-->
+<!--                <button class="btn custom-btn-3 list-buttons" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>-->
+<!--            </th:block>-->
         </div>
     </div>
 </div>
