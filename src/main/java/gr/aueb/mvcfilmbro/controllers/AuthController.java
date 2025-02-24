@@ -32,7 +32,7 @@ public class AuthController {
             return "redirect:/profile"; // Redirect to profile page
         } catch (Exception e) {
             model.addAttribute("error", "Invalid username or password");
-            return "/index"; // Return back to login page with an error message
+            return "index"; // Return back to index page with an error message
         }
     }
 

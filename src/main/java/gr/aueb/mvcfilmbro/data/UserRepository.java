@@ -98,43 +98,43 @@ public class UserRepository {
 //        }
 //    }
 //
-//    /** get the followers of the user
-//    * @param id is the user id
-//    */
-//    public ArrayList<User> getFollowers(int id) throws Exception {
-//        ArrayList<User> followers = new ArrayList<>();
-//
-//        String sql = "SELECT * FROM appuser JOIN follow ON follow.followerId = appuser.userId WHERE follow.followingId = ?";
-//
-//        try {
-//            List<User> result = jdbcTemplate.query(sql, new Object[]{id}, new UserMapper());
-//            followers.addAll(result);
-//        } catch (DataAccessException e) {
-//            throw new Exception("Error fetching followers: " + e.getMessage());
-//        }
-//
-//        return followers;
-//    }
-//
-//    /**  list of users that the specified user is following
-//     * @param id the id of the user whose following list is to be retrieved
-//     */
-//
-//    public ArrayList<User> getFollowing(int id) throws Exception {
-//        ArrayList<User> following = new ArrayList<>();
-//
-//        String sql = "SELECT * FROM AppUser JOIN Follow ON Follow.followingId = AppUser.userId WHERE followerId=?";
-//
-//        try {
-//            List<User> result = jdbcTemplate.query(sql, new Object[]{id}, new UserMapper());
-//            following.addAll(result);
-//        } catch (DataAccessException e) {
-//            throw new Exception("Error fetching followers: " + e.getMessage());
-//        }
-//
-//        return following;
-//    }
-//
+    /** get the followers of the user
+    * @param id is the user id
+    */
+    public ArrayList<User> getFollowers(int id) throws Exception {
+        ArrayList<User> followers = new ArrayList<>();
+
+        String sql = "SELECT * FROM appuser JOIN follow ON follow.followerId = appuser.userId WHERE follow.followingId = ?";
+
+        try {
+            List<User> result = jdbcTemplate.query(sql, new Object[]{id}, new UserMapper());
+            followers.addAll(result);
+        } catch (DataAccessException e) {
+            throw new Exception("Error fetching followers: " + e.getMessage());
+        }
+
+        return followers;
+    }
+
+    /**  list of users that the specified user is following
+     * @param id the id of the user whose following list is to be retrieved
+     */
+
+    public ArrayList<User> getFollowing(int id) throws Exception {
+        ArrayList<User> following = new ArrayList<>();
+
+        String sql = "SELECT * FROM AppUser JOIN Follow ON Follow.followingId = AppUser.userId WHERE followerId=?";
+
+        try {
+            List<User> result = jdbcTemplate.query(sql, new Object[]{id}, new UserMapper());
+            following.addAll(result);
+        } catch (DataAccessException e) {
+            throw new Exception("Error fetching followers: " + e.getMessage());
+        }
+
+        return following;
+    }
+
 //    /** find user by id
 //     * @param userId the id of the user
 //     */

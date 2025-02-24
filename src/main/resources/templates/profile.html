@@ -29,13 +29,13 @@
                         <!-- Country -->
                         <p class="country"><b>Country:</b> <span th:text="${user.country}"></span></p>
 
-<!--                        &lt;!&ndash; Followers and Following Buttons &ndash;&gt;-->
-<!--                        <div class="d-flex div-follow-style">-->
-<!--                            <button class="btn btn-sm custom-btn follow-style" onclick="showFollowersPopup()">-->
-<!--                                Followers <span><%=userDAO.getFollowers(id).size()%></span>-->
+                        <!-- Followers and Following Buttons -->
+<!--                        <div class="follow-buttons">-->
+<!--                            <button class="btn" onclick="showFollowersPopup()">-->
+<!--                                Followers <span th:text="${user.followersCount}"></span>-->
 <!--                            </button>-->
-<!--                            <button class="btn btn-sm custom-btn follow-style" onclick="showFollowingPopup()">-->
-<!--                                Following <span><%=userDAO.getFollowing(id).size()%></span>-->
+<!--                            <button class="btn" onclick="showFollowingPopup()">-->
+<!--                                Following <span th:text="${user.followingCount}"></span>-->
 <!--                            </button>-->
 <!--                        </div>-->
                     </div>
