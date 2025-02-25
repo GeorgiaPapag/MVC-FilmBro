@@ -19,4 +19,8 @@ public class UserService {
     public User authenticate(String username, String password) {
         return userRepository.authentication(username, password);
     }
+
+    public void updateUser(User user) throws Exception {
+        userRepository.updateUser(user); // This calls the method in UserRepository
+    }
 }

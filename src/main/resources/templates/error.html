@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Error</title>
+</head>
+<body>
+    <h1>Something went wrong!</h1>
+    <p>Sorry, an error occurred. Please try again later.</p>
+    <p>Error Details:</p>
+    <pre th:text="${error}"></pre> <!-- Optional: Display the error message -->
+</body>
+</html>
