@@ -1,6 +1,8 @@
 package gr.aueb.mvcfilmbro.controllers;
 
 import gr.aueb.mvcfilmbro.model.User;
+import gr.aueb.mvcfilmbro.model.Country;
+import gr.aueb.mvcfilmbro.service.CountryService;
 import gr.aueb.mvcfilmbro.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import java.util.List;
 
 @Controller
 public class AuthController {
 
     private final UserService userService;
+    private final CountryService countryService;
 
     @Autowired
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, CountryService countryService) {
 
         this.userService = userService;
+        this.countryService = countryService;
     }
 
     @PostMapping("/login")
@@ -68,6 +72,15 @@ public class AuthController {
         }
 
         model.addAttribute("user", loggedInUser);
+
+        //Fetch the list of countries from CountryService
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("countries", countries);
+
+        // Get country name from the country code
+        String selectedCountryName = countryService.getCountryNameByCode(loggedInUser.getCountry());
+        model.addAttribute("selectedCountryName", selectedCountryName);
+
         return "editmyprofile"; // This should match your Thymeleaf template name
     }
 

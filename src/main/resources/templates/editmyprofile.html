@@ -210,6 +210,7 @@
                                readonly required>
                     </div>
 
+                    <!-- Email Input Field -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
                         <input type="email" class="form-control form-control-custom-style" minlength="5" required id="email"
@@ -217,6 +218,45 @@
                                title="Email must contain at least one number and can only include letters, numbers, '@', and '.'">
                     </div>
 
+                    <!-- Country-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="country" class="form-label">Country</label>-->
+<!--                        <div class="dropdown">-->
+<!--                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                <span th:text="${user.country}">Select Country</span>-->
+<!--                            </button>-->
+<!--                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                                &lt;!&ndash; Displaying countries &ndash;&gt;-->
+<!--                                <li th:each="country : ${countries}">-->
+<!--                                    <button class="dropdown-item" type="button" th:text="${country.name}" th:value="${country.code}" th:selected="${user.country == country.code}"></button>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <!-- Country Dropdown -->
+                    <div class="mb-3 mb-3-custom">
+                        <label id="country" class="form-label">Country:</label>
+                        <div class="dropdown dropdown-custom">
+                            <button class="btn btn-primary dropdown-toggle dropdown-button-custome-style" type="button"
+                                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- Show selected country name or default message -->
+                                <span th:text="${selectedCountryName != null ? selectedCountryName : 'Choose a Country'}">Select Country</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-custom dropdown-item-custom-2"
+                                aria-labelledby="dropdownMenuButton" id="countryDropdown">
+                                <!-- Loop over countries and display them -->
+                                <li th:each="country : ${countries}">
+                                    <button class="dropdown-item" type="button"
+                                            th:data-id="${country.code}"
+                                            th:classappend="${selectedCountry != null && selectedCountry == country.code ? 'selected' : ''}">
+                                        <img th:src="@{'https://flagcdn.com/w40/' + ${country.code.toLowerCase()} + '.png'}"
+                                             alt="Flag" style="width: 20px; height: 14px; margin-right: 10px;">
+                                        <span th:text="${country.name}"></span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
                     <!--Info-->
                     <div class="mb-3">
@@ -273,6 +313,105 @@
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+
+<script>
+    const selectedCountryInput = document.getElementById('selectedCountry');
+    const streamingButton = document.getElementById("streamingDropdown");
+
+    // Enable or disable the Watch Providers button based on the selected country
+    if (selectedCountryInput.value) {
+        streamingButton.style.pointerEvents = "auto";
+        streamingButton.style.opacity = "1";
+        fetchWatchProviders(selectedCountryInput.value);
+    } else {
+        streamingButton.style.pointerEvents = "none";
+        streamingButton.style.opacity = "0.5";
+    }
+
+    // Handle country dropdown selection
+    document.querySelectorAll('#countryDropdown .dropdown-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const selectedCountryName = this.textContent.trim();
+            const countryId = this.getAttribute('data-id');
+
+            // Update the dropdown button text
+            document.getElementById('dropdownMenuButton').textContent = selectedCountryName;
+
+            // Set the hidden input value to the selected country's ID
+            selectedCountryInput.value = countryId;
+
+            // Enable the Watch Providers button
+            streamingButton.style.pointerEvents = "auto";
+            streamingButton.style.opacity = "1";
+
+            // Fetch watch providers for the selected country
+            fetchWatchProviders(countryId);
+        });
+    });
+
+    function fetchWatchProviders(countryId) {
+        const streamingDropdownMenu = document.getElementById("streamingDropdownMenu");
+
+        if (!countryId) {
+            streamingDropdownMenu.innerHTML = "<p>Please select a country first.</p>";
+            return;
+        }
+
+        streamingDropdownMenu.innerHTML = "<p>Loading watch providers...</p>";
+
+        // Make the API call to get watch providers (adjust the endpoint as needed)
+        fetch(`/getWatchProviders?country=${countryId}`)
+            .then(response => response.json())
+            .then(data => populateWatchProviders(streamingDropdownMenu, data))
+            .catch(error => {
+                streamingDropdownMenu.innerHTML = `<p>Error loading watch providers: ${error.message}</p>`;
+            });
+    }
+
+    function populateWatchProviders(menu, providers) {
+        menu.innerHTML = "";
+        if (providers && providers.length > 0) {
+            providers.forEach(provider => {
+                const listItem = document.createElement("li");
+                const div = document.createElement("div");
+                div.className = "form-check custom-checkbox-add";
+
+                const checkbox = document.createElement("input");
+                checkbox.className = "form-check-input";
+                checkbox.type = "checkbox";
+                checkbox.id = provider.id;
+                checkbox.name = "movieServices[" + provider.name + "]";
+                checkbox.value = "on";
+
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "movieServices[" + provider.name + "]";
+                hiddenInput.value = "off";
+
+                const logoImg = document.createElement("img");
+                logoImg.src = `https://image.tmdb.org/t/p/w45${provider.logo_path}`;
+                logoImg.alt = provider.name + " Logo";
+                logoImg.classList.add("logo-img");
+
+                const label = document.createElement("label");
+                label.className = "form-check-label custom-checkbox-style";
+                label.htmlFor = provider.id;
+                label.textContent = provider.name;
+
+                div.appendChild(checkbox);
+                div.appendChild(hiddenInput);
+                div.appendChild(logoImg);
+                div.appendChild(label);
+                listItem.appendChild(div);
+                menu.appendChild(listItem);
+            });
+        } else {
+            menu.innerHTML = "<p>No watch providers available</p>";
+        }
+    }
+</script>
 
 <script>
     // Get references to the input field and the edit icon
