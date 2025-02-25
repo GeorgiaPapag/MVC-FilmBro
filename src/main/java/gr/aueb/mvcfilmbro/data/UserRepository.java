@@ -43,36 +43,6 @@ public class UserRepository {
             throw new RuntimeException("Wrong username or password");
         }
     }
-//    /**
-//     * Registers a new user into the database.
-//     * Checks if the username or email already exist before insertion.
-//     * @param username the user's username
-//     * @param password the user's password
-//     * @param email the user's email
-//     * @param accountStatus the user's account status (active/inactive)
-//     * @throws Exception if the username/email already exists
-//     */
-//    public void register(String username, String password, String email, int accountStatus) throws Exception {
-//        // Check if the user already exists
-//        String checkQuery = "SELECT COUNT(*) FROM appuser WHERE user_name = ? OR email = ?;";
-//
-//        int userExists = jdbcTemplate.queryForObject(checkQuery, Integer.class, username, email);
-//
-//        if (userExists > 0) {
-//            throw new Exception("Username or email is already used. Choose something different.");
-//        }
-//
-//        // Insert user
-//        String insertQuery = "INSERT INTO appuser (user_name, pass_word, email, account_status) VALUES (?, ?, ?, ?);";
-//
-//        try {
-//            jdbcTemplate.update(insertQuery, username, password, email, accountStatus);
-//        } catch (DataAccessException e) {
-//            throw new Exception("Something went wrong while inserting the user: " + e.getMessage());
-//        }
-//    }
-//
-//
 
     /**
      * update the fields of the user
