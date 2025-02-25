@@ -55,7 +55,7 @@ public class AuthController {
 
         if (user == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "You must be logged in to see your profile.");
-            return "redirect:/index"; // Redirect to login if not authenticated
+            return "redirect:/index"; // Redirect to index if not authenticated
         }
 
         model.addAttribute("user", user);

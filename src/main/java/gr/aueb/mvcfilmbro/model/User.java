@@ -3,11 +3,11 @@ package gr.aueb.mvcfilmbro.model;
 public class User {
 
     private int userId;
-    private String userName; // Changed to camelCase
+    private String userName;
     private String passWord;
     private String email;
     private String country;
-    private String profilePic;  // Changed to camelCase
+    private String profilePic;
     private int accountStatus;
     private String bio;
 

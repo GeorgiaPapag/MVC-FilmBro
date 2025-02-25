@@ -71,32 +71,32 @@ public class UserRepository {
 //    }
 //
 //
-//    /** update the fields of the user
-//     * @param user is the user object containing users details
-//     * @throws Exception if an error occurs while updating
-//     */
-//
-//    public void updateUser(User user) throws Exception {
-//
-//        // update the user details
-//        String sql = "UPDATE appuser SET user_name = ?, email = ?, country = ?, profile_pic = ?, account_status = ?, bio = ? WHERE userId = ?";
-//
-//        try {
-//            jdbcTemplate.update(sql,
-//                    user.getUsername(),
-//                    user.getEmail(),
-//                    user.getCountry(),
-//                    user.getProfilePic(),
-//                    user.getAccount_status(),
-//                    user.getBio(),
-//                    user.getId()
-//            );
-//        } catch (DataAccessException e) {
-//
-//            // exception that may occur form the database
-//            throw new Exception("Error while updating:" + e.getMessage());
-//        }
-//    }
+    /** update the fields of the user
+     * @param user is the user object containing users details
+     * @throws Exception if an error occurs while updating
+     */
+
+    public void updateUser(User user) throws Exception {
+
+        // update the user details
+        String sql = "UPDATE appuser SET user_name = ?, email = ?, country = ?, profile_pic = ?, account_status = ?, bio = ? WHERE userId = ?";
+
+        try {
+            jdbcTemplate.update(sql,
+                    user.getUserName(),
+                    user.getEmail(),
+                    user.getCountry(),
+                    user.getProfilePic(),
+                    user.getAccountStatus(),
+                    user.getBio(),
+                    user.getUserId()
+            );
+        } catch (DataAccessException e) {
+
+            // exception that may occur form the database
+            throw new Exception("Error while updating:" + e.getMessage());
+        }
+    }
 //
 //    /** get the followers of the user
 //    * @param id is the user id
