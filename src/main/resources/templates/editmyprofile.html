@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile | FilmBro</title><!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/forms_css.css" rel="stylesheet">
+    <link href="/css/forms.css" rel="stylesheet">
     <link href="/css/general.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
 </head>
 
 <style>
-    :root {
-        --header-height: 60px;
-        --footer-height: 30px;
-    }
 
     /* Background Image */
     .background {
@@ -28,7 +24,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: calc(100vh - var(--header-height) - var(--footer-height));
         overflow: hidden;
     }
     body {
@@ -81,11 +76,189 @@
 </nav>
 
 <div class="background">
+    <div th:each="mes : ${message}">
+        <h1 th:text="${mes}"></h1>
+    </div>
 
+    <div class="modal-dialog modal-sm width-form-style width-form-style-500px">
+        <div class="modal-content general-form-style general-form-style-edit">
+            <div class="modal-header header-form-style">
+                <h1 class="text-center header-title-form-style">My Profile</h1>
+            </div>
+
+            <div class="modal-body form-body-style">
+                <form id="profile" th:action="@{/editProfile}" method="post">
+                    <input type="hidden" name="user_id" th:value="${user.userId}" />
+                    <input type="hidden" id="selectedCountry" name="country" th:value="${user.country}" />
+                    <input type="hidden" name="user_password" th:value="${user.passWord}" />
+
+                    <!-- Hidden input to store selected avatar -->
+                    <input type="hidden" name="avatarUrl" id="avatarUrl" th:value="${user.profilePic}">
+
+                    <div class="style-photo-section">
+                        <!-- Profile Photo and Avatar Selection -->
+                        <div class="d-flex align-items-start photo-wrapper style-photo">
+                            <img id="profilePhoto" th:src="${user.profilePic}" alt="Profile Picture" class="profile-photo">
+                            <div class="profile-icon" onclick="showAvatarPopup()">
+                                <i data-visualcompletion="css-img" class="camera-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Avatar Popup -->
+                    <div class="popup" id="avatarPopup" style="display: none;">
+                        <div class="popup-content primary-bg shadow p-4 rounded">
+                            <button type="button" class="btn-close float-end close" onclick="closeAvatarPopup()"></button>
+                            <h3 class="text-center header-style">Select Your Avatar</h3>
+                            <div class="container container-custom">
+                                <div class="row row-custom g-3">
+                                    <!-- Example Avatars -->
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303097.jpg')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303097.jpg" class="card-img-top rounded-2" alt="Avatar 1">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303076.jpg?t=st=1733179428~exp=1733183028~hmac=f734aa50c53be3a509160cd24c73d8b0f9b240f9a6aaf9764db3c05624e94d8d&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303076.jpg?t=st=1733179428~exp=1733183028~hmac=f734aa50c53be3a509160cd24c73d8b0f9b240f9a6aaf9764db3c05624e94d8d&w=1380" class="card-img-top rounded-2" alt="Avatar 2">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303053.jpg?t=st=1733179453~exp=1733183053~hmac=a6ed2c14c2a00110fc69331dea03b87b8402180a835aba741f22c52f0e6a3c28&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303053.jpg?t=st=1733179453~exp=1733183053~hmac=a6ed2c14c2a00110fc69331dea03b87b8402180a835aba741f22c52f0e6a3c28&w=1380" class="card-img-top rounded-2" alt="Avatar 3">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303089.jpg?t=st=1733179493~exp=1733183093~hmac=8581f556cba032425bcda5e939f2a2df1d9886f437a9802331277de1acf728c4&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303089.jpg?t=st=1733179493~exp=1733183093~hmac=8581f556cba032425bcda5e939f2a2df1d9886f437a9802331277de1acf728c4&w=1380" class="card-img-top rounded-2" alt="Avatar 4">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869121.jpg?t=st=1733179573~exp=1733183173~hmac=2487283301618d0c72e5264612aa6747919d5bec7bd2ce5b5d6ee581e4c8577f&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869121.jpg?t=st=1733179573~exp=1733183173~hmac=2487283301618d0c72e5264612aa6747919d5bec7bd2ce5b5d6ee581e4c8577f&w=1380" class="card-img-top rounded-2" alt="Avatar 5">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869133.jpg?t=st=1733179700~exp=1733183300~hmac=738bbc8a1011bf4449cf53baeb5a9f62f0a318206dad8de3f3dcbff45663d0b1&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869133.jpg?t=st=1733179700~exp=1733183300~hmac=738bbc8a1011bf4449cf53baeb5a9f62f0a318206dad8de3f3dcbff45663d0b1&w=1380" class="card-img-top rounded-2" alt="Avatar 6">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869127.jpg?t=st=1733179601~exp=1733183201~hmac=13ad84d40c8177cd27795535d9893868eeca9c9340397286a091035872c16e0d&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869127.jpg?t=st=1733179601~exp=1733183201~hmac=13ad84d40c8177cd27795535d9893868eeca9c9340397286a091035872c16e0d&w=1380" class="card-img-top rounded-2" alt="Avatar 4">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303050.jpg?t=st=1733179907~exp=1733183507~hmac=f85657f4771fb461022085d071b284285dbcd71675fbcfc7826344bf4759009a&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303050.jpg?t=st=1733179907~exp=1733183507~hmac=f85657f4771fb461022085d071b284285dbcd71675fbcfc7826344bf4759009a&w=1380" class="card-img-top rounded-2" alt="Avatar 5">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869145.jpg?t=st=1733179748~exp=1733183348~hmac=8a3f5dae1c208d8bb1a312ae8acf579ecb1131043fd4ba9ddb220e49b77abf4e&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-rendering-hair-style-avatar-design_23-2151869145.jpg?t=st=1733179748~exp=1733183348~hmac=8a3f5dae1c208d8bb1a312ae8acf579ecb1131043fd4ba9ddb220e49b77abf4e&w=1380" class="card-img-top rounded-2" alt="Avatar 6">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303093.jpg?t=st=1733179812~exp=1733183412~hmac=273ace13ca1a47175d9f5791a522e53347831c62ba81082a83cba0adcc82e336&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303093.jpg?t=st=1733179812~exp=1733183412~hmac=273ace13ca1a47175d9f5791a522e53347831c62ba81082a83cba0adcc82e336&w=1380" class="card-img-top rounded-2" alt="Avatar 4">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303073.jpg?t=st=1733179874~exp=1733183474~hmac=afca4b7dcc8cd6b401cfcc85d6bff1909b314f6677af7160f56a20012b518462&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303073.jpg?t=st=1733179874~exp=1733183474~hmac=afca4b7dcc8cd6b401cfcc85d6bff1909b314f6677af7160f56a20012b518462&w=1380" class="card-img-top rounded-2" alt="Avatar 5">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303045.jpg?t=st=1733179896~exp=1733183496~hmac=e8c93dc59ddaa2da31a0ca99e8f324cd235cefb25e49ebe87503246acd6a6ad2&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303045.jpg?t=st=1733179896~exp=1733183496~hmac=e8c93dc59ddaa2da31a0ca99e8f324cd235cefb25e49ebe87503246acd6a6ad2&w=1380" class="card-img-top rounded-2" alt="Avatar 6">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303069.jpg?t=st=1733179912~exp=1733183512~hmac=70ddea2d9e291f51ce299bf69a707fe17f6b730104f31757aaff42b6f69eb9ff&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303069.jpg?t=st=1733179912~exp=1733183512~hmac=70ddea2d9e291f51ce299bf69a707fe17f6b730104f31757aaff42b6f69eb9ff&w=1380" class="card-img-top rounded-2" alt="Avatar 4">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303048.jpg?t=st=1733179926~exp=1733183526~hmac=b4f6b25e325a572d251c78465e64996c42cbd8fd3d2205952b915f50fef27347&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303048.jpg?t=st=1733179926~exp=1733183526~hmac=b4f6b25e325a572d251c78465e64996c42cbd8fd3d2205952b915f50fef27347&w=1380" class="card-img-top rounded-2" alt="Avatar 5">
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-custom">
+                                        <div class="card border-0" onclick="selectAvatar('https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303055.jpg?t=st=1733179942~exp=1733183542~hmac=ab6c8539219e8056c101d75d2c6d91079b09968a6fd9c85a62f2ad09a8161d36&w=1380')">
+                                            <img src="https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303055.jpg?t=st=1733179942~exp=1733183542~hmac=ab6c8539219e8056c101d75d2c6d91079b09968a6fd9c85a62f2ad09a8161d36&w=1380" class="card-img-top rounded-2" alt="Avatar 6">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 position-relative">
+                        <label for="name" class="form-label">Username:</label>
+
+                        <!-- Pen Icon Above the Input -->
+                        <span id="editIcon" class="position-absolute"
+                              style="top: 0; right: 10px; cursor: pointer; font-size: 1.2em;">
+                            &#9998; <!-- Unicode Pen Icon -->
+                        </span>
+
+                        <!-- Username Input Field -->
+                        <input type="text" class="form-control form-control-custom-style"
+                               id="name" name="name"
+                               th:value="${user.userName}"
+                               minlength="5" maxlength="30" placeholder="My username"
+                               readonly required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control form-control-custom-style" minlength="5" required id="email"
+                               name="userEmail" th:value="${user.email}"  placeholder="My email"
+                               title="Email must contain at least one number and can only include letters, numbers, '@', and '.'">
+                    </div>
+
+
+                    <!--Info-->
+                    <div class="mb-3">
+                        <label for="info" class="form-label">Information about me: </label>
+                        <textarea class="form-control form-control-custom-style textarea-custom-style" id="info" name = "info" rows="5" maxlength="1000" th:text="${user.bio}"></textarea>
+                    </div>
+
+                    <!-- Private-Public Options -->
+                    <div class="select-option">
+                        <label class="form-label form-label-custom">I want my profile to be:</label>
+                        <div class="option-container">
+                            <!-- Private option -->
+                            <label class="option option-custom-style" tabindex="0" role="button"
+                                   data-bs-toggle="popover" data-bs-placement="bottom"
+                                   data-bs-trigger="hover" data-bs-content="Only your followers can see your lists, reviews, and followers.">
+                                <input type="radio" name="profileVisibility" value="0" class="option-radio"
+                                       th:checked="${user.accountStatus == 0}">
+                                Private
+                            </label>
+
+                            <!-- Public option -->
+                            <label class="option option-custom-style" tabindex="0" role="button"
+                                   data-bs-toggle="popover" data-bs-placement="bottom"
+                                   data-bs-trigger="hover" data-bs-content="ALL users can see your lists, reviews, and followers.">
+                                <input type="radio" name="profileVisibility" value="1" class="option-radio"
+                                       th:checked="${user.accountStatus == 1}">
+                                Public
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex justify-content">
+                        <button type="submit" class="btn btn-primary me-2 button-style button-style-edit">Save</button>
+                        <button type="button" class="btn btn-secondary button-style button-style-edit" th:onclick="|window.location.href = '/profile?id=${user.userId}'|">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
 
 
 
@@ -96,5 +269,96 @@
         <p class="mb-0 letters-color">Powered by <a class="custom-link" href="/index">FilmBro</a> | &copy; 2025 All Rights Reserved</p>
     </div>
 </footer>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    // Get references to the input field and the edit icon
+    const usernameField = document.getElementById("name");
+    const editIcon = document.getElementById("editIcon");
+
+    // Add click event to the pen icon
+    editIcon.addEventListener("click", () => {
+        // Enable the input field for editing
+        usernameField.removeAttribute("readonly");
+        usernameField.focus(); // Automatically focus on the field
+
+        // Hide the pen icon
+        editIcon.style.display = "none";
+    });
+</script>
+
+<script>
+    // Avatar Popup
+    function selectAvatar(avatarSrc) {
+        // Update the hidden input with the selected avatar's URL
+        const avatarInput = document.getElementById("avatarUrl");
+        if (avatarInput) {
+            avatarInput.value = avatarSrc;  // Set the selected avatar URL here
+        }
+
+        // Update the displayed profile picture
+        const profilePic = document.getElementById("profilePhoto");
+        if (profilePic) {
+            profilePic.src = avatarSrc;  // Change the image source to the new avatar
+        }
+
+        // Close the popup
+        closeAvatarPopup();
+    }
+
+    function closeAvatarPopup() {
+        // Hide the avatar popup by setting the display to "none"
+        const avatarPopup = document.getElementById("avatarPopup");
+        if (avatarPopup) {
+            avatarPopup.style.display = "none";
+        }
+    }
+
+    function showAvatarPopup() {
+        // Show the avatar popup by setting the display to "flex"
+        const avatarPopup = document.getElementById("avatarPopup");
+        if (avatarPopup) {
+            avatarPopup.style.display = "flex";
+        }
+    }
+
+    // Close avatar popup when clicking outside of it
+    window.addEventListener("click", function (event) {
+        const avatarPopup = document.getElementById("avatarPopup");
+        if (avatarPopup && event.target === avatarPopup) {
+            closeAvatarPopup();
+        }
+    });
+</script>
+
+<!--for public private-->
+<script>
+    // Initialize Bootstrap popovers
+    document.addEventListener('DOMContentLoaded', function () {
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        popoverTriggerList.forEach(function (popoverTriggerEl) {
+            new bootstrap.Popover(popoverTriggerEl);
+        });
+    });
+
+    // Ensure only one checkbox is selected at a time (Private or Public)
+    const checkboxes = document.querySelectorAll('.option-checkbox');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                checkboxes.forEach(otherCheckbox => {
+                    if (otherCheckbox !== this) {
+                        otherCheckbox.checked = false; // Uncheck the other checkbox
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
