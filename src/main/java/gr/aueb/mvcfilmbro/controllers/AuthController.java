@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class AuthController {
@@ -25,22 +27,30 @@ public class AuthController {
     public String login(@RequestParam String username,
                         @RequestParam String password,
                         HttpSession session,
-                        Model model) {
+                        Model model,
+                        RedirectAttributes redirectAttributes) {
         try {
             User user = userService.authenticate(username, password);
-            session.setAttribute("loggedInUser", user); // Store user in session
-            return "redirect:/profile"; // Redirect to profile page
+
+            if(user == null) {
+                redirectAttributes.addFlashAttribute("error", "Wrong username or password");
+                return "/index";
+            } else {
+                session.setAttribute("loggedInUser", user); // Store user in session
+                return "redirect:/profile"; // Redirect to profile page
+            }
         } catch (Exception e) {
-            model.addAttribute("error", "Invalid username or password");
+            model.addAttribute("error", "Wrong username or password");
             return "/index"; // Return back to login page with an error message
         }
     }
 
     @GetMapping("/profile")
-    public String profile(HttpSession session, Model model) {
+    public String profile(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "You must be logged in to see your profile.");
             return "redirect:/index"; // Redirect to login if not authenticated
         }
 
@@ -48,29 +58,12 @@ public class AuthController {
         return "profile"; // This should be your profile page
     }
 
-//@GetMapping("/profile")
-//public String profile(HttpSession session, Model model) {
-//    User user = (User) session.getAttribute("loggedInUser");
-//
-//    if (user == null) {
-//        return "redirect:/index"; // Redirect to login if not authenticated
-//    }
-//
-//    // Debugging: Log the user properties to check if they are populated
-//    System.out.println("User Name: " + user.getUserName());  // Correct method name
-//    System.out.println("User Bio: " + user.getBio());
-//    System.out.println("User Country: " + user.getCountry());
-//
-//    model.addAttribute("user", user);
-//    return "profile"; // This should be your profile page
-//}
-//
-//
     @GetMapping("/editmyprofile")
-    public String editProfile(HttpSession session, Model model) {
+    public String editProfile(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "You must be logged in to edit your profile.");
             return "redirect:/index"; // Redirect to index if not authenticated
         }
 

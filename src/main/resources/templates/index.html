@@ -67,6 +67,19 @@
 
 <body style="background-color: #2C1E1A">
 
+<!--Error and Success Messages-->
+<div th:if="${errorMessage}" class="class-error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<div th:if="${error}" class="class-error" role="alert">
+    <p th:text="${error}"></p>
+</div>
+
+<div th:if="${success}" class="class-success" role="alert">
+    <p th:text="${success}"></p>
+</div>
+
 <!-- Navbar -->
 <nav class="navbar">
     <!-- Brand -->
