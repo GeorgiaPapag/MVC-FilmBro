@@ -52,7 +52,7 @@ The use case allows users to edit their profile, update their personal details/i
 6. You can change the name (click the pencil to write), the email, the info and the profile visibility (hover over the two radios buttons to see the messages). You can click on the camera icon and see the available avatars or the country to see the list of the countries.
         For example, change the name to GeorgiaPap.
 7. If you want to keep the changes choose save, in this case you will return to the profile page but the details will have changed. Otherwise, if you do not want to keep the changes choose cancel which will sent you back to the profile page without any change in your details.
-8. You can log out from the profile by choosing the option "logout" in the dropdown that opens when you click on the profile picture in the header.
+8. You can sign out from the profile by choosing the option "sign out" in the dropdown that opens when you click on the profile picture in the header.
 
 ** In the edit profile does not exit the streaming services. Also, I do not use the Api we have used in the team project the countries are manually passed. 
 
