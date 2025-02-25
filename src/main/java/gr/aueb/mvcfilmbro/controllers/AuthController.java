@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 @Controller
 public class AuthController {
@@ -86,45 +88,60 @@ public class AuthController {
         return "editmyprofile"; // This should match your Thymeleaf template name
     }
 
-    @PostMapping("/updateProfile")
-    public String updateProfile(@RequestParam int userId,
-                                @RequestParam String name,
-                                @RequestParam String userEmail,
-                                @RequestParam String country,
-                                @RequestParam String bio,
-                                @RequestParam String avatarUrl,
-                                @RequestParam int profileVisibility, // accountStatus
-                                HttpSession session,
-                                RedirectAttributes redirectAttributes) {
+//    @PostMapping("/updateProfile")
+//    public String updateProfile(@RequestParam int userId,
+//                                @RequestParam String name,
+//                                @RequestParam String userEmail,
+//                                @RequestParam String country,
+//                                @RequestParam String bio,
+//                                @RequestParam String avatarUrl,
+//                                @RequestParam int profileVisibility, // accountStatus
+//                                HttpSession session,
+//                                RedirectAttributes redirectAttributes) {
+//
+//        User currentUser = (User) session.getAttribute("loggedInUser");
+//
+//        if (currentUser == null) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "You must be logged in to edit your profile.");
+//            return "redirect:/index"; // Redirect to login page if not authenticated
+//        }
+//
+//        try {
+//            // Map profileVisibility to accountStatus
+//            int accountStatus = profileVisibility; // If profileVisibility should map to accountStatus
+//
+//            // Create the updated User object (using the constructor that matches the User class)
+//            User updatedUser = new User(userId, name, currentUser.getPassWord(), userEmail, country, avatarUrl, accountStatus, bio);
+//
+//            // Update the user details in the database using UserService
+//            userService.updateUser(updatedUser);
+//
+//            // Save the updated user back to the session
+//            session.setAttribute("loggedInUser", updatedUser);
+//
+//            redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
+//            return "redirect:/profile"; // Redirect to the profile page
+//
+//        } catch (Exception e) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred: " + e.getMessage());
+//            return "redirect:/error"; // Redirect to the custom error page
+//        }
+//    }
+@PostMapping("/updateProfile")
+public String updateProfile(@ModelAttribute("user") User user, Model model) {
+    System.out.println("Received user update request: " + user);
+    System.out.println("Received User ID: " + user.getUserId());
 
-        User currentUser = (User) session.getAttribute("loggedInUser");
-
-        if (currentUser == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "You must be logged in to edit your profile.");
-            return "redirect:/index"; // Redirect to login page if not authenticated
-        }
-
-        try {
-            // Map profileVisibility to accountStatus
-            int accountStatus = profileVisibility; // If profileVisibility should map to accountStatus
-
-            // Create the updated User object (using the constructor that matches the User class)
-            User updatedUser = new User(userId, name, currentUser.getPassWord(), userEmail, country, avatarUrl, accountStatus, bio);
-
-            // Update the user details in the database using UserService
-            userService.updateUser(updatedUser);
-
-            // Save the updated user back to the session
-            session.setAttribute("loggedInUser", updatedUser);
-
-            redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
-            return "redirect:/profile"; // Redirect to the profile page
-
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred: " + e.getMessage());
-            return "redirect:/error"; // Redirect to the custom error page
-        }
+    try {
+        userService.updateUser(user);
+        return "profile";
+    } catch (Exception e) {
+        model.addAttribute("error", e.getMessage());
+        return "error";
     }
+}
+
+
 
 
 //    @PostMapping("/editmyprofile")

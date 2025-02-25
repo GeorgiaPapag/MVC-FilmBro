@@ -57,7 +57,7 @@
 
     <div class="dropdown text-end ms-2 profile-icon-position">
         <a href="#" class="d-block text-decoration-none dropdown-toggle custom-brand" data-bs-toggle="dropdown">
-            <img th:src="${user.profilePic}" alt="Profile" class="rounded-circle">
+            <img th:src="${user.profilePic != null ? user.profilePic : '/images/Default-Profile2.jpg'}" alt="Profile" class="rounded-circle">
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
             <li>
@@ -88,7 +88,9 @@
 
             <div class="modal-body form-body-style">
                 <form id="profile" th:action="@{/updateProfile}" method="post">
-                    <input type="hidden" name="user_id" th:value="${user.userId}" />
+<!--                    <input type="hidden" name="user_id" th:value="${user.userId}" />-->
+                    <input type="hidden" name="userId" th:value="${user.userId}" />
+
                     <input type="hidden" id="selectedCountry" name="country" th:value="${user.country}" />
                     <input type="hidden" name="user_password" th:value="${user.passWord}" />
 
@@ -98,7 +100,7 @@
                     <div class="style-photo-section">
                         <!-- Profile Photo and Avatar Selection -->
                         <div class="d-flex align-items-start photo-wrapper style-photo">
-                            <img id="profilePhoto" th:src="${user.profilePic}" alt="Profile Picture" class="profile-photo">
+                            <img id="profilePic" th:src="${user.profilePic != null ? user.profilePic : '/images/Default-Profile2.jpg'}" alt="Profile Picture" class="profile-photo">
                             <div class="profile-icon" onclick="showAvatarPopup()">
                                 <i data-visualcompletion="css-img" class="camera-icon"></i>
                             </div>
@@ -194,7 +196,7 @@
                     </div>
 
                     <div class="mb-3 position-relative">
-                        <label for="name" class="form-label">Username:</label>
+                        <label for="userName" class="form-label">Username:</label>
 
                         <!-- Pen Icon Above the Input -->
                         <span id="editIcon" class="position-absolute"
@@ -204,7 +206,7 @@
 
                         <!-- Username Input Field -->
                         <input type="text" class="form-control form-control-custom-style"
-                               id="name" name="name"
+                               id="userName" name="userName"
                                th:value="${user.userName}"
                                minlength="5" maxlength="30" placeholder="My username"
                                readonly required>
@@ -213,9 +215,12 @@
                     <!-- Email Input Field -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control form-control-custom-style" minlength="5" required id="email"
-                               name="userEmail" th:value="${user.email}"  placeholder="My email"
+                        <input type="email" class="form-control form-control-custom-style"
+                               minlength="5" required id="email"
+                               name="email" th:value="${user.email}"
+                               placeholder="My email"
                                title="Email must contain at least one number and can only include letters, numbers, '@', and '.'">
+
                     </div>
 
                     <!-- Country Dropdown -->
@@ -246,8 +251,8 @@
 
                     <!--Info-->
                     <div class="mb-3">
-                        <label for="info" class="form-label">Information about me: </label>
-                        <textarea class="form-control form-control-custom-style textarea-custom-style" id="info" name = "info" rows="5" maxlength="1000" th:text="${user.bio}"></textarea>
+                        <label for="bio" class="form-label">Information about me: </label>
+                        <textarea class="form-control form-control-custom-style textarea-custom-style" id="bio" name ="bio" rows="5" maxlength="1000" th:text="${user.bio}"></textarea>
                     </div>
 
                     <!-- Private-Public Options -->
@@ -258,7 +263,7 @@
                             <label class="option option-custom-style" tabindex="0" role="button"
                                    data-bs-toggle="popover" data-bs-placement="bottom"
                                    data-bs-trigger="hover" data-bs-content="Only your followers can see your lists, reviews, and followers.">
-                                <input type="radio" name="profileVisibility" value="0" class="option-radio"
+                                <input type="radio" name="accountStatus" value="0" class="option-radio"
                                        th:checked="${user.accountStatus == 0}">
                                 Private
                             </label>
@@ -267,7 +272,7 @@
                             <label class="option option-custom-style" tabindex="0" role="button"
                                    data-bs-toggle="popover" data-bs-placement="bottom"
                                    data-bs-trigger="hover" data-bs-content="ALL users can see your lists, reviews, and followers.">
-                                <input type="radio" name="profileVisibility" value="1" class="option-radio"
+                                <input type="radio" name="accountStatus" value="1" class="option-radio"
                                        th:checked="${user.accountStatus == 1}">
                                 Public
                             </label>
@@ -407,7 +412,7 @@
 
 <script>
     // Get references to the input field and the edit icon
-    const usernameField = document.getElementById("name");
+    const usernameField = document.getElementById("userName");
     const editIcon = document.getElementById("editIcon");
 
     // Add click event to the pen icon
@@ -431,7 +436,7 @@
         }
 
         // Update the displayed profile picture
-        const profilePic = document.getElementById("profilePhoto");
+        const profilePic = document.getElementById("profilePic");
         if (profilePic) {
             profilePic.src = avatarSrc;  // Change the image source to the new avatar
         }

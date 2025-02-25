@@ -81,13 +81,42 @@ public class UserRepository {
      * @throws Exception if an error occurs while updating
      */
 
-    public void updateUser(User user) throws Exception {
+//    public void updateUser(User user) throws Exception {
+//
+//        // update the user details
+//        String sql = "UPDATE appuser SET user_name = ?, email = ?, country = ?, profile_pic = ?, account_status = ?, bio = ? WHERE userId = ?";
+//
+//        try {
+//            jdbcTemplate.update(sql,
+//                    user.getUserName(),
+//                    user.getEmail(),
+//                    user.getCountry(),
+//                    user.getProfilePic(),
+//                    user.getAccountStatus(),
+//                    user.getBio(),
+//                    user.getUserId()
+//            );
+//        } catch (DataAccessException e) {
+//
+//            // exception that may occur form the database
+//            throw new Exception("Error while updating:" + e.getMessage());
+//        }
+//    }
 
-        // update the user details
+    public void updateUser(User user) throws Exception {
+        System.out.println("Executing update query for user: " + user);
+        System.out.println("User Data - Username: " + user.getUserName());
+        System.out.println("Email: " + user.getEmail());
+        System.out.println("Country: " + user.getCountry());
+        System.out.println("Profile Pic: " + user.getProfilePic());
+        System.out.println("Account Status: " + user.getAccountStatus());
+        System.out.println("Bio: " + user.getBio());
+        System.out.println("User ID: " + user.getUserId());
+
         String sql = "UPDATE appuser SET user_name = ?, email = ?, country = ?, profile_pic = ?, account_status = ?, bio = ? WHERE userId = ?";
 
         try {
-            jdbcTemplate.update(sql,
+            int rowsUpdated = jdbcTemplate.update(sql,
                     user.getUserName(),
                     user.getEmail(),
                     user.getCountry(),
@@ -96,11 +125,14 @@ public class UserRepository {
                     user.getBio(),
                     user.getUserId()
             );
+            System.out.println("Rows updated: " + rowsUpdated);
+            if (rowsUpdated == 0) {
+                throw new Exception("No rows updated. User ID may not exist.");
+            }
         } catch (DataAccessException e) {
-
-            // exception that may occur form the database
-            throw new Exception("Error while updating:" + e.getMessage());
+            throw new Exception("Error while updating: " + e.getMessage());
         }
     }
+
 }
 
