@@ -42,7 +42,7 @@ The use case allows users to edit their profile, update their personal details/i
 
 ## Scenario
 
-1. Open the project.
+1. Open the project. (link: http://localhost:8080/index, index is the fist page of the project)
 2. Click on login button and add the credentials:
         username: Georgia
         password: 123456
@@ -60,6 +60,7 @@ The use case allows users to edit their profile, update their personal details/i
 
 1. Try to log in by using invalid credentials. It will show a message.
 2. Delete the name from the form and try to save. It will not let you. 
+3. Try to enter in any other page except index without having done login (for example http://localhost:8080/profile). It will not let you and it will show a message.
 
 ## ChatGTP
 
