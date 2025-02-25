@@ -20,7 +20,9 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    /** authentication method
+    /**
+     * authentication method
+     *
      * @param username should match with database username
      * @param password should match with database password
      */
@@ -71,7 +73,10 @@ public class UserRepository {
 //    }
 //
 //
-    /** update the fields of the user
+
+    /**
+     * update the fields of the user
+     *
      * @param user is the user object containing users details
      * @throws Exception if an error occurs while updating
      */
@@ -97,4 +102,5 @@ public class UserRepository {
             throw new Exception("Error while updating:" + e.getMessage());
         }
     }
+}
 
