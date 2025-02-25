@@ -87,7 +87,7 @@
             </div>
 
             <div class="modal-body form-body-style">
-                <form id="profile" th:action="@{/updateProfile}" method="post">
+                <form id="profile" th:action="@{/profile}" method="post">
                     <input type="hidden" name="userId" th:value="${user.userId}" />
 
                     <input type="hidden" id="selectedCountry" name="country" th:value="${user.country}" />
