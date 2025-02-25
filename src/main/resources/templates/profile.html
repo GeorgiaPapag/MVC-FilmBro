@@ -42,7 +42,6 @@
 
         <div class="dropdown text-end ms-2 profile-icon-position">
             <a href="#" class="d-block text-decoration-none dropdown-toggle custom-brand" data-bs-toggle="dropdown">
-<!--                <img th:src="${user.profilePic}" alt="Profile" class="rounded-circle">-->
                 <img id="profilePic" th:src="${user.profilePic != null ? user.profilePic : '/images/Default-Profile2.jpg'}" alt="Profile Picture" class="rounded-circle">
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -76,38 +75,9 @@
                             <b th:text="${user.userName}"></b>
                         </h1>
 
-    <!--                    &lt;!&ndash; Followers and Following Buttons &ndash;&gt;-->
-    <!--                    <div class="d-flex div-follow-style">-->
-    <!--                        <button class="btn btn-sm custom-btn follow-style" onclick="showFollowersPopup()">-->
-    <!--                            Followers <span th:text="${#lists.size(followers)}"></span>-->
-    <!--                        </button>-->
-    <!--                        <button class="btn btn-sm custom-btn follow-style" onclick="showFollowingPopup()">-->
-    <!--                            Following <span th:text="${#lists.size(following)}"></span>-->
-    <!--                        </button>-->
-    <!--                    </div>-->
-
                         <!-- Edit Profile or Follow Button -->
                         <div class="d-flex gap-2 mt-2 custom-width">
-    <!--                        <th:block th:if="${currentUser != null}">-->
-    <!--                            <th:block th:if="${currentUser.id == user.id}">-->
                             <a th:href="@{/editmyprofile}" class="btn btn-sm edit-button-style">Edit Profile</a>
-
-                            <!--                            </th:block>-->
-    <!--                            <th:block th:if="${currentUser.id != user.id}">-->
-    <!--                                <button id="followButton"-->
-    <!--                                        class="btn btn-sm custom-btn-2 custom-follow-button"-->
-    <!--                                        th:classappend="${userService.isFollowing(currentUser, user) ? 'active' : ''}"-->
-    <!--                                        th:text="${userService.isFollowing(currentUser, user) ? 'Unfollow' : 'Follow'}"-->
-    <!--                                        th:onclick="'handleFollowButtonClick(this, ' + ${user.id} + ')'"-->
-    <!--                                ></button>-->
-    <!--                            </th:block>-->
-    <!--                        </th:block>-->
-    <!--                        <th:block th:if="${currentUser == null}">-->
-    <!--                            <button class="btn btn-sm custom-btn-2 custom-follow-button"-->
-    <!--                                    data-bs-toggle="modal" data-bs-target="#loginModal">-->
-    <!--                                Follow-->
-    <!--                            </button>-->
-    <!--                        </th:block>-->
                         </div>
                     </div>
                 </div>
@@ -123,68 +93,18 @@
             </div>
         </div>
 
-    <!--    &lt;!&ndash; Followers Popup &ndash;&gt;-->
-    <!--    <div class="popup effect" id="followersPopup">-->
-    <!--        <div class="popup-content width-form-style-effect">-->
-    <!--            <span class="close" onclick="closePopup('followersPopup')">&times;</span>-->
-    <!--            <h3>Followers</h3>-->
-    <!--            <div class="follower-list">-->
-    <!--                <div class="follower-item" th:each="f : ${followers}">-->
-    <!--                    <div class="follower-photo">-->
-    <!--                        <a th:href="@{/profile(id=${f.id})}">-->
-    <!--                            <img th:src="${f.profilePic}" alt="Follower Profile Picture">-->
-    <!--                        </a>-->
-    <!--                    </div>-->
-    <!--                    <div class="follower-info">-->
-    <!--                        <a th:href="@{/profile(id=${f.id})}">-->
-    <!--                            <span class="follower-username" th:text="${f.username}"></span>-->
-    <!--                        </a>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
-    <!--    &lt;!&ndash; Following Popup &ndash;&gt;-->
-    <!--    <div class="popup effect" id="followingPopup">-->
-    <!--        <div class="popup-content width-form-style-effect">-->
-    <!--            <span class="close" onclick="closePopup('followingPopup')">&times;</span>-->
-    <!--            <h3>Following</h3>-->
-    <!--            <div class="follower-list">-->
-    <!--                <div class="follower-item" th:each="f : ${following}">-->
-    <!--                    <div class="follower-photo">-->
-    <!--                        <a th:href="@{/profile(id=${f.id})}">-->
-    <!--                            <img th:src="${f.profilePic}" alt="Follower Profile Picture">-->
-    <!--                        </a>-->
-    <!--                    </div>-->
-    <!--                    <div class="follower-info">-->
-    <!--                        <a th:href="@{/profile(id=${f.id})}">-->
-    <!--                            <span class="follower-username" th:text="${f.username}"></span>-->
-    <!--                        </a>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
         <!-- Options Section -->
         <div class="container-fluid custom-border m-0 p-0">
             <div class="d-flex justify-content-center gap-2 py-3 space2">
-    <!--            <th:block th:if="${currentUser != null}">-->
                     <button class="btn custom-btn-3 list-buttons" onclick="redirectToDefaultList('Seen')">Seen</button>
                     <button class="btn custom-btn-3 list-buttons" onclick="redirectToDefaultList('Favorites')">Favorites</button>
                     <button class="btn custom-btn-3 list-buttons" onclick="redirectToDefaultList('Watchlist')">Watchlist</button>
-    <!--                <th:block th:if="${user.id == currentUser.id}">-->
-                        <button id="reviewsButton" class="btn custom-btn-3 list-buttons">My Reviews</button>
-                        <button id="movieListsButton" class="btn custom-btn-3 list-buttons">My Movie Lists</button>
-    <!--                </th:block>-->
-    <!--            </th:block>-->
-    <!--            <th:block th:if="${currentUser == null}">-->
-    <!--                <button class="btn custom-btn-3 list-buttons" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>-->
-    <!--            </th:block>-->
+                    <button id="reviewsButton" class="btn custom-btn-3 list-buttons">My Reviews</button>
+                    <button id="movieListsButton" class="btn custom-btn-3 list-buttons">My Movie Lists</button>
             </div>
         </div>
     </div>
+
     <!-- Footer -->
     <div class="mt-auto" style="margin-top: 4%;"></div>
     <footer class="text-center custom-footer footer-line space-up">
